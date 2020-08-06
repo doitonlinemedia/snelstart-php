@@ -6,7 +6,7 @@
 
 namespace SnelstartPHP\Connector\V2;
 
-use Cassandra\UuidInterface;
+use Ramsey\Uuid\UuidInterface;
 use SnelstartPHP\Connector\BaseConnector;
 use SnelstartPHP\Exception\SnelstartResourceNotFoundException;
 use SnelstartPHP\Mapper\V2 as Mapper;

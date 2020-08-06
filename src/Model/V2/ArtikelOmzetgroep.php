@@ -33,7 +33,7 @@ final class ArtikelOmzetgroep extends SnelstartObject
         "omschrijving",
     ];
 
-    public function getNummer(): int
+    public function getNummer(): ?int
     {
         return $this->nummer;
     }
@@ -45,7 +45,7 @@ final class ArtikelOmzetgroep extends SnelstartObject
         return $this;
     }
 
-    public function getOmschrijving(): string
+    public function getOmschrijving(): ?string
     {
         return $this->omschrijving;
     }

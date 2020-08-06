@@ -105,7 +105,7 @@ final class Artikel extends SnelstartObject
         "vrijeVoorraad",
     ];
 
-    public function isHoofdartikel(): bool
+    public function isHoofdartikel(): ?bool
     {
         return $this->isHoofdartikel;
     }

@@ -1,5 +1,5 @@
 {
-    "name":"iwd-nl/snelstart-php",
+    "name":"doitonlinemedia/snelstart-php",
     "license": "GPL-3.0-or-later",
     "type": "library",
     "description": "Snelstart API toegepast in PHP",

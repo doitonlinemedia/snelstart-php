@@ -21,8 +21,8 @@ class PrijsAfspraakConnector extends BaseConnector
     {
         {
             try {
-                return json_decode($this->connection->doRequest(PrijsAfspraakRequest::getByArticleAndCustomer($article->getId()->toString(),
-                    $relatie->getId()->toString(), $aantal))->getBody()->getContents());
+                return json_decode($this->connection->doRequest(PrijsAfspraakRequest::getByArticleAndCustomer($article,
+                    $relatie, $aantal))->getBody()->getContents());
             } catch (SnelstartResourceNotFoundException $e) {
                 return null;
             }

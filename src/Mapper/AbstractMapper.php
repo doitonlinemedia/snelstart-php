@@ -48,7 +48,7 @@ abstract class AbstractMapper
 
     protected function getMoney(string $money): Money
     {
-        return new Money(intval(floatval($money) * 100), Snelstart::getCurrency());
+        return new Money(($money * 100), Snelstart::getCurrency());
     }
 
     /**
@@ -59,19 +59,21 @@ abstract class AbstractMapper
     protected function setDataToModel(SnelstartObject $class, string $key, $value): SnelstartObject
     {
         $methodName = "set" . ucfirst($key);
-        $customSet = false;
+        $customSet  = false;
 
         if ($key === "id" && is_string($value)) {
-            $value = Uuid::fromString($value);
+            $value     = Uuid::fromString($value);
             $customSet = true;
-        } else if (substr($key, -2, 2) === "On" || strpos($key, "datum") !== false) {
-            $value = \DateTimeImmutable::createFromFormat(Snelstart::DATETIME_FORMAT, $value);
+        } else {
+            if (substr($key, -2, 2) === "On" || strpos($key, "datum") !== false) {
+                $value = \DateTimeImmutable::createFromFormat(Snelstart::DATETIME_FORMAT, $value);
 
-            if (!$value) {
-                $value = null;
+                if (!$value) {
+                    $value = null;
+                }
+
+                $customSet = true;
             }
-
-            $customSet = true;
         }
 
         try {

@@ -20,7 +20,7 @@ final class PrijsAfspraakRequest extends BaseRequest
     public static function getByArticleAndCustomer(Artikel $artikel, Relatie $relatie, $aantal = 1)
     {
         return new Request('GET',
-            sprintf('prijsafspraken/explicit-parameters?artikelPublicIdentifier=%s&aantal=%b&relatiePublicIdentifier=%s',
+            sprintf('prijsafspraken/explicit-parameters?artikelPublicIdentifier=%s&aantal=%s&relatiePublicIdentifier=%s',
                 $artikel->getId()->toString(), $aantal, $relatie->getId()->toString()));
     }
 

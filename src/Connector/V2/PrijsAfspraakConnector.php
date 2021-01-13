@@ -28,4 +28,16 @@ class PrijsAfspraakConnector extends BaseConnector
             }
         }
     }
+
+    public function getExplicitPrijsAfspraakByRelatieAndArtikel(Artikel $article, Relatie $relatie, $aantal = 1)
+    {
+        {
+            try {
+                return json_decode($this->connection->doRequest(PrijsAfspraakRequest::getExplicitByArticleAndCustomer($article,
+                    $relatie, $aantal))->getBody()->getContents());
+            } catch (SnelstartResourceNotFoundException $e) {
+                return null;
+            }
+        }
+    }
 }

@@ -13,6 +13,7 @@ use SnelstartPHP\Model\V2\Prijsafspraak;
 use SnelstartPHP\Model\V2\Relatie;
 use SnelstartPHP\Request\ArtikelRequest;
 use SnelstartPHP\Request\V2\PrijsAfspraakRequest;
+use SnelstartPHP\Connector\BaseConnector;
 use function json_decode;
 
 class PrijsAfspraakConnector extends BaseConnector

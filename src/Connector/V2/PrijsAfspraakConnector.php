@@ -4,7 +4,7 @@
  * @project SnelstartApiPHP
  */
 
-namespace SnelstartPHP\Connector;
+namespace SnelstartPHP\Connector\V2;
 
 use Ramsey\Uuid\UuidInterface;
 use SnelstartPHP\Exception\SnelstartResourceNotFoundException;

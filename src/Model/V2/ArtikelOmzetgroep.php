@@ -14,14 +14,14 @@ final class ArtikelOmzetgroep extends SnelstartObject
     /**
      * Omzetgroep nummer
      *
-     * @var int
+     * @var int|null
      */
     private $nummer;
 
     /**
-     * Omschijving van de omzet groep
+     * Omschrijving van de omzetgroep
      *
-     * @var string
+     * @var string|null
      */
     private $omschrijving;
 
@@ -38,7 +38,7 @@ final class ArtikelOmzetgroep extends SnelstartObject
         return $this->nummer;
     }
 
-    public function setNummer(int $nummer): self
+    public function setNummer(?int $nummer): self
     {
         $this->nummer = $nummer;
 
@@ -50,9 +50,9 @@ final class ArtikelOmzetgroep extends SnelstartObject
         return $this->omschrijving;
     }
 
-    public function setOmschrijving(string $omschrijving): self
+    public function setOmschrijving(?string $omschrijving): self
     {
-        if (mb_strlen($omschrijving) > 50) {
+        if ($omschrijving !== null && mb_strlen($omschrijving) > 50) {
             throw PreValidationException::textLengthException(mb_strlen($omschrijving), 50);
         }
 

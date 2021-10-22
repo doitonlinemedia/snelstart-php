@@ -13,7 +13,7 @@ use SnelstartPHP\Model\SnelstartObject;
 final class Artikel extends SnelstartObject
 {
     /**
-     * @var bool
+     * @var bool|null
      */
     private $isHoofdartikel;
 

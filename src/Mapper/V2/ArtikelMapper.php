@@ -59,7 +59,7 @@ final class ArtikelMapper extends AbstractMapper
         }
 
         foreach ($data["subartikelen"] ?? [] as $subArtikel) {
-            $artikel->addSubArtikel(SubArtikel::createFromUUID($subArtikel["id"])
+            $artikel->addSubArtikel(SubArtikel::createFromUUID(Uuid::fromString($subArtikel["id"]))
                 ->setAantal($subArtikel["aantal"])
                 ->setArtikelcode($subArtikel["artikelcode"])
             );

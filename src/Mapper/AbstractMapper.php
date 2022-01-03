@@ -49,7 +49,7 @@ abstract class AbstractMapper
 
     protected function getMoney(string $money): Money
     {
-        return new Money(($money * 100), Snelstart::getCurrency());
+        return new Money(round($money * 100), Snelstart::getCurrency());
     }
 
     /**

@@ -6,6 +6,7 @@
 
 namespace SnelstartPHP\Request\V2;
 
+use SnelstartPHP\Model\Artikel;
 use function \http_build_query;
 use function \array_filter;
 use GuzzleHttp\Psr7\Request;
@@ -46,5 +47,12 @@ final class ArtikelRequest extends BaseRequest
         ], static function($value) {
             return $value !== null;
         }), "", "&", \PHP_QUERY_RFC3986);
+    }
+
+    public static function updateArtikel(\SnelstartPHP\Model\V2\Artikel $artikel)
+    {
+        return new Request("PUT", "artikelen/" . $artikel->getId()->toString(), [
+            "Content-Type"  =>  "application/json"
+        ], \GuzzleHttp\json_encode( (new self())->prepareAddOrEditRequestForSerialization($artikel)));
     }
 }

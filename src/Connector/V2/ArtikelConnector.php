@@ -10,6 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 use SnelstartPHP\Connector\BaseConnector;
 use SnelstartPHP\Exception\SnelstartResourceNotFoundException;
 use SnelstartPHP\Mapper\V2 as Mapper;
+use SnelstartPHP\Model\Artikel;
 use SnelstartPHP\Model\V2 as Model;
 use SnelstartPHP\Request\ArtikelRequest;
 use SnelstartPHP\Request\ODataRequestData;
@@ -77,5 +78,13 @@ final class ArtikelConnector extends BaseConnector
         } catch (SnelstartResourceNotFoundException $e) {
             return null;
         }
+    }
+
+    public function updateArtikel(Model\Artikel $artikel)
+    {
+        if ($artikel->getId() === null) {
+            throw new PreValidationException("Artikel should have an ID.");
+        }
+        return $this->connection->doRequest(Request\ArtikelRequest::updateArtikel($artikel));
     }
 }

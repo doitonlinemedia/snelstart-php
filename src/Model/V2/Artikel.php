@@ -45,12 +45,12 @@ final class Artikel extends SnelstartObject
     private $artikelOmzetgroep;
 
     /**
-     * @var Money
+     * @var Money|null
      */
     private $inkoopprijs;
 
     /**
-     * @var Money
+     * @var Money|null
      */
     private $verkoopprijs;
 
@@ -177,7 +177,7 @@ final class Artikel extends SnelstartObject
         return $this;
     }
 
-    public function getVerkoopprijs(): Money
+    public function getVerkoopprijs(): ?Money
     {
         return $this->verkoopprijs;
     }
@@ -202,6 +202,11 @@ final class Artikel extends SnelstartObject
     }
 
     public function isNonActief(): ?bool
+    {
+        return $this->isNonActief;
+    }
+
+    public function isIsNonActief(): ?bool
     {
         return $this->isNonActief;
     }
@@ -249,7 +254,7 @@ final class Artikel extends SnelstartObject
         return $this;
     }
 
-    public function getInkoopprijs(): Money
+    public function getInkoopprijs(): ?Money
     {
         return $this->inkoopprijs;
     }

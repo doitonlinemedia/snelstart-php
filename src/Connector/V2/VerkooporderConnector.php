@@ -10,6 +10,7 @@ use SnelstartPHP\Connector\BaseConnector;
 use SnelstartPHP\Exception\PreValidationException;
 use SnelstartPHP\Mapper\V2\VerkooporderMapper;
 use SnelstartPHP\Model\V2\Verkooporder;
+use SnelstartPHP\Request\ODataRequestData;
 use SnelstartPHP\Request\V2\VerkooporderRequest;
 
 final class VerkooporderConnector extends BaseConnector
@@ -38,8 +39,8 @@ final class VerkooporderConnector extends BaseConnector
         $verkooporderMapper->delete($this->connection->doRequest($verkooporderRequst->delete($verkooporder)));
     }
 
-    public function findAll($filter = null): iterable
+    public function findAll(?ODataRequestData $ODataRequestData = null): iterable
     {
-        return  (new VerkooporderMapper())->findAll($this->connection->doRequest(VerkooporderRequest::findAll($filter)));
+        return  (new VerkooporderMapper())->findAll($this->connection->doRequest( (new VerkooporderRequest())->findAll($ODataRequestData)));
     }
 }

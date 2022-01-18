@@ -9,8 +9,10 @@ namespace SnelstartPHP\Request\V2;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use SnelstartPHP\Exception\PreValidationException;
+use SnelstartPHP\Model\V2\Relatie;
 use SnelstartPHP\Model\V2\Verkooporder;
 use SnelstartPHP\Request\BaseRequest;
+use SnelstartPHP\Request\ODataRequestDataInterface;
 
 final class VerkooporderRequest extends BaseRequest
 {
@@ -28,5 +30,10 @@ final class VerkooporderRequest extends BaseRequest
         }
 
         return new Request("DELETE", "verkooporders/" . $verkooporder->getId()->toString());
+    }
+
+    public function findAll(ODataRequestDataInterface $ODataRequestData): RequestInterface
+    {
+        return new Request("GET", "verkooporders?" . $ODataRequestData->getHttpCompatibleQueryString());
     }
 }

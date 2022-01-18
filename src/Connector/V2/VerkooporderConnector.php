@@ -37,4 +37,9 @@ final class VerkooporderConnector extends BaseConnector
 
         $verkooporderMapper->delete($this->connection->doRequest($verkooporderRequst->delete($verkooporder)));
     }
+
+    public function findAll($filter = null): iterable
+    {
+        return  (new VerkooporderMapper())->findAll($this->connection->doRequest(VerkooporderRequest::findAll($filter)));
+    }
 }

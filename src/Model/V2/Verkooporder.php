@@ -13,6 +13,7 @@ use SnelstartPHP\Model\Kostenplaats;
 use SnelstartPHP\Model\SnelstartObject;
 use SnelstartPHP\Model\Type\ProcesStatus;
 use SnelstartPHP\Model\Type\VerkooporderBtwIngave;
+use SnelstartPHP\Model\Type\VerkooporderBtwIngaveModel;
 use SnelstartPHP\Snelstart;
 
 final class Verkooporder extends SnelstartObject
@@ -320,7 +321,7 @@ final class Verkooporder extends SnelstartObject
         return $this->verkooporderBtwIngaveModel;
     }
 
-    public function setVerkooporderBtwIngaveModel(VerkooporderBtwIngave $verkooporderBtwIngaveModel): self
+    public function setVerkooporderBtwIngaveModel(VerkooporderBtwIngaveModel $verkooporderBtwIngaveModel): self
     {
         $this->verkooporderBtwIngaveModel = $verkooporderBtwIngaveModel;
 
@@ -347,7 +348,7 @@ final class Verkooporder extends SnelstartObject
         return $this->regels;
     }
 
-    public function setRegels(VerkooporderRegel ...$regels): self
+    public function setRegels($regels): self
     {
         $this->regels = $regels;
 

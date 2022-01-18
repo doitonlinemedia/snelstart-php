@@ -117,7 +117,7 @@ final class VerkooporderRegel extends BaseObject
         return $this->kortingsPercentage;
     }
 
-    public function setKortingsPercentage(float $kortingsPercentage): self
+    public function setKortingsPercentage(Money $kortingsPercentage): self
     {
         $this->kortingsPercentage = $kortingsPercentage;
 

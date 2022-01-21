@@ -81,7 +81,7 @@ final class VerkooporderRegel extends BaseObject
         return $this->omschrijving;
     }
 
-    public function setOmschrijving(string $omschrijving): self
+    public function setOmschrijving(string $omschrijving = null): self
     {
         $this->omschrijving = $omschrijving;
 

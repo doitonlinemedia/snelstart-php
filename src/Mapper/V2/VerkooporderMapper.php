@@ -135,7 +135,7 @@ final class VerkooporderMapper extends AbstractMapper
         }
 
         if (isset($data["incassomachtiging"]["id"])) {
-            $incassoMachtiging = Model\IncassoMachtiging::createFromUUID(Uuid::fromString($data["incassomachtiging"]["id"]));
+            $incassoMachtiging = IncassoMachtiging::createFromUUID(Uuid::fromString($data["incassomachtiging"]["id"]));
             $verkooporder->setIncassoMachtiging($incassoMachtiging);
         }
 

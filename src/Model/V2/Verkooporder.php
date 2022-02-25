@@ -12,7 +12,6 @@ use SnelstartPHP\Model\IncassoMachtiging;
 use SnelstartPHP\Model\Kostenplaats;
 use SnelstartPHP\Model\SnelstartObject;
 use SnelstartPHP\Model\Type\ProcesStatus;
-use SnelstartPHP\Model\Type\VerkooporderBtwIngave;
 use SnelstartPHP\Model\Type\VerkooporderBtwIngaveModel;
 use SnelstartPHP\Snelstart;
 
@@ -95,7 +94,7 @@ final class Verkooporder extends SnelstartObject
     private $factuuradres;
 
     /**
-     * @var VerkooporderBtwIngave|null
+     * @var VerkooporderBtwIngaveModel|null
      */
     private $verkooporderBtwIngaveModel;
 
@@ -322,7 +321,7 @@ final class Verkooporder extends SnelstartObject
         return $this;
     }
 
-    public function getVerkooporderBtwIngaveModel(): ?VerkooporderBtwIngave
+    public function getVerkooporderBtwIngaveModel(): ?VerkooporderBtwIngaveModel
     {
         return $this->verkooporderBtwIngaveModel;
     }

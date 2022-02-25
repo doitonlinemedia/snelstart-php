@@ -151,6 +151,11 @@ final class Verkooporder extends SnelstartObject
     private $totaalInclusiefBtw;
 
     /**
+     * @var bool $geblokeerd
+     */
+    private $geblokeerd;
+
+    /**
      * @var string[]
      */
     public static $editableAttributes = [
@@ -175,6 +180,7 @@ final class Verkooporder extends SnelstartObject
         "verkoopordersjabloon",
         "totaalExclusiefBtw",
         "totaalInclusiefBtw",
+        'geblokkeerd',
     ];
 
     public static function getEditableAttributes(): array
@@ -435,6 +441,25 @@ final class Verkooporder extends SnelstartObject
     public function setTotaalInclusiefBtw(Money $totaalInclusiefBtw): self
     {
         $this->totaalInclusiefBtw = $totaalInclusiefBtw;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getGeblokkeerd(): bool
+    {
+        return $this->geblokeerd;
+    }
+
+    /**
+     * @param bool $geblokkeerd
+     * @return Verkooporder
+     */
+    public function setGeblokkeerd(bool $geblokkeerd): self
+    {
+        $this->geblokeerd = $geblokkeerd;
 
         return $this;
     }

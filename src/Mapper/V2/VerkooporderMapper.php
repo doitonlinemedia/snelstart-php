@@ -161,8 +161,7 @@ final class VerkooporderMapper extends AbstractMapper
             }
 
             if (isset($regel["kortingsPercentage"])) {
-                $prijs = (int)($regel["kortingsPercentage"] * 100);
-                $regelObject->setKortingsPercentage(new Money($prijs, new Currency("EUR")));
+                $regelObject->setKortingsPercentage((float)$regel["kortingsPercentage"]);
             }
 
             if (isset($regel["totaal"])) {

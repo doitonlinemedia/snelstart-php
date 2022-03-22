@@ -8,6 +8,7 @@ namespace SnelstartPHP\Request\V2;
 
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
+use Ramsey\Uuid\UuidInterface;
 use SnelstartPHP\Exception\PreValidationException;
 use SnelstartPHP\Model\V2\Relatie;
 use SnelstartPHP\Model\V2\Verkooporder;
@@ -16,11 +17,23 @@ use SnelstartPHP\Request\ODataRequestDataInterface;
 
 final class VerkooporderRequest extends BaseRequest
 {
+    public function find(UuidInterface $id): RequestInterface
+    {
+        return new Request("GET", "verkooporders/" . $id->toString());
+    }
+
     public function add(Verkooporder $verkooporder): RequestInterface
     {
         return new Request("POST", "verkooporders", [
             "Content-Type"  =>  "application/json"
         ], \GuzzleHttp\json_encode($this->prepareAddOrEditRequestForSerialization($verkooporder)));
+    }
+
+    public function updateVerkoopOrder(Verkooporder $verkooporder)
+    {
+        return new Request("PUT", "verkooporders/" . $verkooporder->getId()->toString(), [
+            "Content-Type"  =>  "application/json"
+        ], \GuzzleHttp\json_encode( $this->prepareAddOrEditRequestForSerialization($verkooporder)));
     }
 
     public function delete(Verkooporder $verkooporder): RequestInterface

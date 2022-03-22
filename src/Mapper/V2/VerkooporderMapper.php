@@ -23,15 +23,31 @@ use SnelstartPHP\Model\V2\Verkoopfactuur;
 use SnelstartPHP\Model\V2\Verkooporder;
 use SnelstartPHP\Model\V2\VerkooporderRegel;
 use SnelstartPHP\Model\V2\Verkoopordersjabloon;
+use SnelstartPHP\Model\Verkoopboeking;
+use SnelstartPHP\Model\VerkooporderAfleverAdres;
+use SnelstartPHP\Model\VerkooporderFactuurdres;
 use SnelstartPHP\Snelstart;
 
 final class VerkooporderMapper extends AbstractMapper
 {
+    public function find(ResponseInterface $response): ?Verkooporder
+    {
+        $this->setResponseData($response);
+        return $this->mapResponseToVerkooporderModel(new Verkooporder());
+    }
+
     public function add(ResponseInterface $response): Verkooporder
     {
         $this->setResponseData($response);
         return $this->map(new Verkooporder());
     }
+
+    public function updateVerkoopOrder(ResponseInterface $response): Verkooporder
+    {
+        $this->setResponseData($response);
+        return $this->map(new Verkooporder());
+    }
+
 
     public function delete(ResponseInterface $response): void
     {
@@ -41,61 +57,68 @@ final class VerkooporderMapper extends AbstractMapper
     public function map(Verkooporder $verkooporder, array $data = []): Verkooporder
     {
         $data = empty($data) ? $this->responseData : $data;
+        if(isset($data['result']) && count($data) === 1){
+            $data = $data['result'];
+        }
         $adresMapper = new AdresMapper();
 
         /**
          * @var Verkooporder $verkooporder
          */
         $verkooporder = $this->mapArrayDataToModel($verkooporder, $data);
-        $verkooporder->setRelatie(Relatie::createFromUUID(Uuid::fromString($data["relatie"]["id"])))
-            ->setProcesStatus(new ProcesStatus($data["procesStatus"]));
+        if(isset($data["relatie"]["id"])){
+            $verkooporder->setRelatie(Relatie::createFromUUID(Uuid::fromString($data["relatie"]["id"])));
+        }
+        $verkooporder->setProcesStatus(new ProcesStatus($data["procesStatus"]));
 
-        if ($data["incassomachtiging"] !== null) {
+        if (isset($data["incassomachtiging"] ) && $data["incassomachtiging"] !== null) {
             $verkooporder->setIncassomachtiging(IncassoMachtiging::createFromUUID(Uuid::fromString($data["incassomachtiging"]["id"])));
         }
 
-        if ($data["afleveradres"] !== null) {
+        if (isset($data["afleveradres"]) && $data["afleveradres"] !== null) {
             $verkooporder->setAfleveradres($adresMapper->mapAdresToSnelstartObject($data["afleveradres"]));
         }
 
-        if ($data["factuuradres"] !== null) {
+        if (isset($data["factuuradres"]) && $data["factuuradres"] !== null) {
             $verkooporder->setFactuuradres($adresMapper->mapAdresToSnelstartObject($data["factuuradres"]));
         }
 
-        if ($data["kostenplaats"] !== null) {
+        if (isset($data["kostenplaats"]) && $data["kostenplaats"] !== null) {
             $verkooporder->setKostenplaats(Kostenplaats::createFromUUID(Uuid::fromString($data["kostenplaats"]["id"])));
         }
 
         $regels = array_map(function(array $data) {
-            return (new VerkooporderRegel())
-                ->setArtikel(Artikel::createFromUUID(Uuid::fromString($data["artikel"]["id"])))
-                ->setOmschrijving($data["omschrijving"])
-                ->setStuksprijs($this->getMoney($data["stuksprijs"]))
-                ->setAantal($data["aantal"])
-                ->setKortingsPercentage($data["kortingsPercentage"])
-                ->setTotaal($this->getMoney($data["totaal"]))
-                ;
+            if(isset($data["artikel"]["id"])){
+                return (new VerkooporderRegel())
+                    ->setArtikel(Artikel::createFromUUID(Uuid::fromString($data["artikel"]["id"])))
+                    ->setOmschrijving($data["omschrijving"])
+                    ->setStuksprijs($this->getMoney($data["stuksprijs"]))
+                    ->setAantal($data["aantal"])
+                    ->setKortingsPercentage($data["kortingsPercentage"])
+                    ->setTotaal($this->getMoney($data["totaal"]))
+                    ;
+            }
         }, $data["regels"]);
 
         $verkooporder->setRegels(...$regels);
 
-        if ($data["factuurkorting"] !== null) {
+        if (isset($data["factuurkorting"]) && $data["factuurkorting"] !== null) {
             $verkooporder->setFactuurkorting($this->getMoney($data["factuurkorting"]));
         }
 
-        if ($data["totaalExclusiefBtw"] !== null) {
+        if (isset($data["totaalExclusiefBtw"]) && $data["totaalExclusiefBtw"] !== null) {
             $verkooporder->setTotaalExclusiefBtw($this->getMoney($data["totaalExclusiefBtw"]));
         }
 
-        if ($data["totaalInclusiefBtw"] !== null) {
+        if (isset($data["totaalInclusiefBtw"]) && $data["totaalInclusiefBtw"] !== null) {
             $verkooporder->setTotaalInclusiefBtw($this->getMoney($data["totaalInclusiefBtw"]));
         }
 
-        if ($data["verkoopfactuur"] !== null) {
+        if (isset($data["verkoopfactuur"]) && $data["verkoopfactuur"] !== null) {
             $verkooporder->setVerkoopfactuur(Verkoopfactuur::createFromUUID(Uuid::fromString($data["verkoopfactuur"])));
         }
 
-        if ($data["verkoopordersjabloon"] !== null) {
+        if (isset($data["verkoopordersjabloon"]["id"]) && $data["verkoopordersjabloon"] !== null) {
             $verkooporder->setVerkoopordersjabloon(Verkoopordersjabloon::createFromUUID(Uuid::fromString($data["verkoopordersjabloon"]["id"])));
         }
 

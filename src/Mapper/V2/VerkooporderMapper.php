@@ -100,7 +100,10 @@ final class VerkooporderMapper extends AbstractMapper
             }
         }, $data["regels"]);
 
-        $verkooporder->setRegels(...$regels);
+        if(count($regels) > 0){
+            $verkooporder->setRegels(...$regels);
+        }
+
 
         if (isset($data["factuurkorting"]) && $data["factuurkorting"] !== null) {
             $verkooporder->setFactuurkorting($this->getMoney($data["factuurkorting"]));

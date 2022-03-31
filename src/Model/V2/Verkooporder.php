@@ -445,9 +445,9 @@ final class Verkooporder extends SnelstartObject
     }
 
     /**
-     * @return bool
+     * @return null|bool
      */
-    public function getGeblokkeerd(): bool
+    public function getGeblokkeerd(): ?bool
     {
         return $this->geblokeerd;
     }

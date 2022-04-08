@@ -199,7 +199,9 @@ final class VerkooporderMapper extends AbstractMapper
             $regels[] = $regelObject;
         }
 
-        $verkooporder->setRegels($regels);
+        if(count($regels) > 0){
+            $verkooporder->setRegels($regels);
+        }
 
 
         if (!empty($data["afleveradres"])) {

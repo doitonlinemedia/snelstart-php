@@ -229,6 +229,11 @@ final class VerkooporderMapper extends AbstractMapper
                 Verkoopfactuur::createFromUUID(Uuid::fromString($data["verkoopfactuur"]["id"]))
             );
         }
+
+        if (isset($data["verkoopordersjabloon"]["id"]) && $data["verkoopordersjabloon"]["id"] !== null) {
+            $verkooporder->setVerkoopordersjabloon(Verkoopordersjabloon::createFromUUID(Uuid::fromString($data["verkoopordersjabloon"]["id"])));
+        }
+
         return $verkooporder;
     }
 

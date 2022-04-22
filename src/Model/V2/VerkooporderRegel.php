@@ -70,7 +70,7 @@ final class VerkooporderRegel extends BaseObject
         $this->artikel = $artikel;
 
         if ($artikel->isHydrated()) {
-            $this->setStuksprijs((float)$artikel->getVerkoopprijs()->amount() / 100);
+            $this->setStuksprijs((float)$artikel->getVerkoopprijs()->getAmount() / 100);
         }
 
         return $this;

@@ -57,7 +57,7 @@ final class VerkooporderMapper extends AbstractMapper
     public function map(Verkooporder $verkooporder, array $data = []): Verkooporder
     {
         $data = empty($data) ? $this->responseData : $data;
-        if(isset($data['result']) && count($data) === 1){
+        if (isset($data['result']) && count($data) === 1) {
             $data = $data['result'];
         }
         $adresMapper = new AdresMapper();
@@ -66,12 +66,12 @@ final class VerkooporderMapper extends AbstractMapper
          * @var Verkooporder $verkooporder
          */
         $verkooporder = $this->mapArrayDataToModel($verkooporder, $data);
-        if(isset($data["relatie"]["id"])){
+        if (isset($data["relatie"]["id"])) {
             $verkooporder->setRelatie(Relatie::createFromUUID(Uuid::fromString($data["relatie"]["id"])));
         }
         $verkooporder->setProcesStatus(new ProcesStatus($data["procesStatus"]));
 
-        if (isset($data["incassomachtiging"] ) && $data["incassomachtiging"] !== null) {
+        if (isset($data["incassomachtiging"]) && $data["incassomachtiging"] !== null) {
             $verkooporder->setIncassomachtiging(IncassoMachtiging::createFromUUID(Uuid::fromString($data["incassomachtiging"]["id"])));
         }
 
@@ -87,20 +87,19 @@ final class VerkooporderMapper extends AbstractMapper
             $verkooporder->setKostenplaats(Kostenplaats::createFromUUID(Uuid::fromString($data["kostenplaats"]["id"])));
         }
 
-        $regels = array_map(function(array $data) {
-            if(isset($data["artikel"]["id"])){
+        $regels = array_map(function (array $data) {
+            if (isset($data["artikel"]["id"])) {
                 return (new VerkooporderRegel())
                     ->setArtikel(Artikel::createFromUUID(Uuid::fromString($data["artikel"]["id"])))
                     ->setOmschrijving($data["omschrijving"])
-                    ->setStuksprijs($this->getMoney($data["stuksprijs"]))
+                    ->setStuksprijs($data["stuksprijs"])
                     ->setAantal($data["aantal"])
                     ->setKortingsPercentage($data["kortingsPercentage"])
-                    ->setTotaal($this->getMoney($data["totaal"]))
-                    ;
+                    ->setTotaal($this->getMoney($data["totaal"]));
             }
         }, $data["regels"]);
 
-        if(count($regels) > 0){
+        if (count($regels) > 0) {
             $verkooporder->setRegels(...$regels);
         }
 
@@ -199,7 +198,7 @@ final class VerkooporderMapper extends AbstractMapper
             $regels[] = $regelObject;
         }
 
-        if(count($regels) > 0){
+        if (count($regels) > 0) {
             $verkooporder->setRegels($regels);
         }
 
@@ -240,7 +239,7 @@ final class VerkooporderMapper extends AbstractMapper
     /**
      * Map the response data to the model. Should extend the RelatieAdres class.
      *
-     * @param array  $address
+     * @param array $address
      * @param string $addressClass
      * @return Adres
      */
@@ -252,7 +251,8 @@ final class VerkooporderMapper extends AbstractMapper
         $class = new $addressClass;
 
         if (!$class instanceof Adres) {
-            throw new \InvalidArgumentException(sprintf("Only classes that extend '%s' are allowed here.", Adres::class));
+            throw new \InvalidArgumentException(sprintf("Only classes that extend '%s' are allowed here.",
+                Adres::class));
         }
 
         $land = Land::createFromUUID(Uuid::fromString($address["land"]["id"]));

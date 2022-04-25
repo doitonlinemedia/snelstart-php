@@ -92,7 +92,7 @@ final class VerkooporderMapper extends AbstractMapper
                 return (new VerkooporderRegel())
                     ->setArtikel(Artikel::createFromUUID(Uuid::fromString($data["artikel"]["id"])))
                     ->setOmschrijving($data["omschrijving"])
-                    ->setStuksprijs($data["stuksprijs"])
+                    ->setStuksprijs((float) $data["stuksprijs"])
                     ->setAantal($data["aantal"])
                     ->setKortingsPercentage($data["kortingsPercentage"])
                     ->setTotaal($this->getMoney($data["totaal"]));
@@ -182,7 +182,7 @@ final class VerkooporderMapper extends AbstractMapper
 
             if (isset($regel["stuksprijs"])) {
                 $prijs = (int)($regel["stuksprijs"] * 100);
-                $regelObject->setStuksprijs(new Money($prijs, new Currency("EUR")));
+                $regelObject->setStuksprijs((float) $prijs);
             }
 
             if (isset($regel["kortingsPercentage"])) {

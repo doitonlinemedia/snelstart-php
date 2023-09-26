@@ -148,7 +148,7 @@ final class VerkooporderMapper extends AbstractMapper
          */
         $verkooporder = $this->mapArrayDataToModel($verkooporder, $data);
 
-        if (isset($data["relatie"])) {
+        if (isset($data["relatie"]) ) {
             $verkooporder->setRelatie(Relatie::createFromUUID(Uuid::fromString($data["relatie"]["id"])));
         }
 
@@ -165,7 +165,7 @@ final class VerkooporderMapper extends AbstractMapper
             $verkooporder->setIncassoMachtiging($incassoMachtiging);
         }
 
-        if (isset($data["kostenplaats"]) && strlen($data["kostenplaats"]) > 0) {
+        if (isset($data["kostenplaats"]["id"])) {
             $verkooporder->setKostenplaats(
                 Kostenplaats::createFromUUID(Uuid::fromString($data["kostenplaats"]["id"]))
             );

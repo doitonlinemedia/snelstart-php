@@ -29,7 +29,7 @@ final class VerkooporderRegel extends BaseObject
     /**
      * Stuksprijs van het artikel.
      *
-     * @var Money|null
+     * @var float|null
      */
     private $stuksprijs;
 
@@ -70,7 +70,7 @@ final class VerkooporderRegel extends BaseObject
         $this->artikel = $artikel;
 
         if ($artikel->isHydrated()) {
-            $this->setStuksprijs($artikel->getVerkoopprijs());
+            $this->setStuksprijs((float)$artikel->getVerkoopprijs()->getAmount() / 100);
         }
 
         return $this;
@@ -88,12 +88,12 @@ final class VerkooporderRegel extends BaseObject
         return $this;
     }
 
-    public function getStuksprijs(): ?Money
+    public function getStuksprijs(): ?float
     {
         return $this->stuksprijs;
     }
 
-    public function setStuksprijs(Money $stuksprijs): self
+    public function setStuksprijs(float $stuksprijs): self
     {
         $this->stuksprijs = $stuksprijs;
 
